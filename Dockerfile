@@ -2,7 +2,7 @@ FROM codercom/code-server:latest
 
 MAINTAINER https://github.com/fxstein
 
-# First lest update everything
+# First lets update everything
 RUN sudo apt-get update
 
 # Update to zsh shell
@@ -20,7 +20,7 @@ RUN code-server --install-extension eamodio.gitlens
 # Copy Python requirements file
 COPY requirements.txt /tmp/requirements.txt
 
-# coder-server settings
+# code-server settings
 USER coder
 COPY settings.json /home/coder/.local/share/code-server/User/settings.json
 
