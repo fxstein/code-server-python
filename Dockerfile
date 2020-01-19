@@ -28,10 +28,8 @@ WORKDIR /home/coder/project
 
 # This ensures we have a volume mounted even if the user forgot to do bind
 # mount. So that they do not lose their data if they delete the container.
+# Mount coder home to also persist git config and ssh keys.
+VOLUME [ "/home/coder" ]
 VOLUME [ "/home/coder/project" ]
-# Persist extensions
-VOLUME [ "/home/coder/.local/share/code-server" ]
-# Persist ssh keys
-VOLUME [ "/home/coder/.ssh" ]
 
 ENTRYPOINT ["dumb-init", "code-server"]
