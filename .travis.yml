@@ -2,12 +2,8 @@ language: python
 python:
   - "3.6"
   - "3.7"
-  - "nightly"
-matrix:
-  allow_failures:
-    - python: "nightly"
+jobs:
   fast_finish: true
-sudo: required
 services:
   - docker
 install:
@@ -18,5 +14,6 @@ before_script:
   - "flake8 --show-source --max-line-length=80 --statistics --builtins=_ common engine feed plugins"
 script:
   - python test.py
-after_script:
   - docker build -t "$DOCKER_USERNAME"/code-server-python .
+#after_script:
+#  - docker build -t "$DOCKER_USERNAME"/code-server-python .

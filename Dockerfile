@@ -5,11 +5,16 @@ MAINTAINER https://github.com/fxstein
 # First lets update everything
 RUN sudo apt-get update
 
+# Install avahi daemon for mDNS support
+RUN sudo apt-get install -yq avahi-daemon avahi-utils libnss-mdns
+
+ADD avahi-daemon.conf /etc/avahi/avahi-daemon.conf
+
 # Update to zsh shell
 RUN sudo apt-get install zsh -y
 
 # Setup python development
-RUN sudo apt-get install python3.7-dev python3-pip nano inetutils-ping -y
+RUN sudo apt-get install python3.7 python3-pip inetutils-ping -y
 RUN python3.7 -m pip install pip
 RUN python3.7 -m pip install wheel
 
