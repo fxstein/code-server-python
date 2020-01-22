@@ -5,10 +5,6 @@ MAINTAINER https://github.com/fxstein
 # First lets update everything
 RUN sudo apt-get update
 
-# Install avahi daemon for mDNS support
-#RUN sudo apt-get install -yq avahi-daemon avahi-utils libnss-mdns
-#ADD avahi-daemon.conf /etc/avahi/avahi-daemon.conf
-
 # Update to zsh shell
 RUN sudo apt-get install zsh -y
 

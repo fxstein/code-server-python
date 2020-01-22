@@ -1,6 +1,5 @@
 language: python
 python:
-  - "3.6"
   - "3.7"
 jobs:
   fast_finish: true
@@ -17,3 +16,8 @@ script:
   - docker build -t "$DOCKER_USERNAME"/code-server-python .
 #after_script:
 #  - docker build -t "$DOCKER_USERNAME"/code-server-python .
+deploy:
+  provider: script
+  script: bash docker_push
+  on:
+    branch: master
