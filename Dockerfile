@@ -32,4 +32,7 @@ WORKDIR /home/coder/project
 VOLUME [ "/home/coder" ]
 VOLUME [ "/home/coder/project" ]
 
-ENTRYPOINT ["dumb-init", "code-server"]
+# http port. Do not expose to the public internet directly!
+EXPOSE 8080
+
+ENTRYPOINT ["dumb-init", "code-server", "--host", "0.0.0.0"]
