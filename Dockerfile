@@ -30,5 +30,6 @@ WORKDIR /home/coder/project
 # mount. So that they do not lose their data if they delete the container.
 # Coder home to also persist git config and ssh keys.
 VOLUME [ "/home/coder" ]
+VOLUME [ "/home/coder/project" ]
 
 ENTRYPOINT ["dumb-init", "code-server"]
