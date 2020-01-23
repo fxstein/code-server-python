@@ -12,11 +12,12 @@ RUN sudo apt-get install zsh -y
 RUN sudo apt-get install python3.7 python3-pip inetutils-ping -y
 RUN python3.7 -m pip install pip
 RUN python3.7 -m pip install wheel
+RUN python3.7 -m pip install flake8
 
 # Install extensions
 RUN code-server --install-extension ms-python.python
 RUN code-server --install-extension eamodio.gitlens
-RUN code-server --install-extension github.vscode-pull-request-github
+RUN code-server --install-extension microsoft.vscode-pull-request-github
 
 # Copy Python requirements file
 COPY requirements.txt /tmp/requirements.txt
