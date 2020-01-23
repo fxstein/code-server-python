@@ -16,6 +16,7 @@ RUN python3.7 -m pip install wheel
 # Install extensions
 RUN code-server --install-extension ms-python.python
 RUN code-server --install-extension eamodio.gitlens
+RUN code-server --install-extension github.vscode-pull-request-github
 
 # Copy Python requirements file
 COPY requirements.txt /tmp/requirements.txt
