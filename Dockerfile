@@ -17,7 +17,7 @@ RUN python3.7 -m pip install flake8
 # Install extensions
 RUN code-server --install-extension ms-python.python
 RUN code-server --install-extension eamodio.gitlens
-RUN code-server --install-extension microsoft.vscode-pull-request-github
+RUN code-server --install-extension GitHub.vscode-pull-request-github
 
 # Copy Python requirements file
 COPY requirements.txt /tmp/requirements.txt
