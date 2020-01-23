@@ -14,8 +14,9 @@ before_script:
 script:
   - python test.py
   - docker build -t "$DOCKER_USERNAME"/code-server-python .
-#after_script:
-#  - docker build -t "$DOCKER_USERNAME"/code-server-python .
+    if: branch = master
+  - docker build -t "$DOCKER_USERNAME"/code-server-python:develop .
+    if: branch = develop
 deploy:
   provider: script
   script: bash docker_push
