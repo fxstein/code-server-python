@@ -2,6 +2,13 @@ language: python
 python:
   - "3.7"
 jobs:
+  include:
+    - # define master tag
+      if: branch = master
+      env: TAG=latest
+    - # define develop tag
+      if: branch = develop
+      env: TAG=develop
   fast_finish: true
 services:
   - docker
@@ -13,12 +20,11 @@ before_script:
   - "flake8 --show-source --max-line-length=80 --statistics --builtins=_ common engine feed plugins"
 script:
   - python test.py
-  - docker build -t "$DOCKER_USERNAME"/code-server-python .
-    if: branch = master
-  - docker build -t "$DOCKER_USERNAME"/code-server-python:develop .
-    if: branch = develop
+  - docker build -t "$DOCKER_USERNAME"/code-server-python:$TAG .
 deploy:
   provider: script
   script: bash docker_push
   on:
-    branch: master
+    branch: 
+      - master
+      - develop

@@ -12,6 +12,7 @@ RUN sudo apt-get install zsh -y
 RUN sudo apt-get install python3.7 python3-pip inetutils-ping -y
 RUN python3.7 -m pip install pip
 RUN python3.7 -m pip install wheel
+RUN python3.7 -m pip install flake8
 
 # Install extensions
 RUN code-server --install-extension ms-python.python
@@ -32,4 +33,12 @@ WORKDIR /home/coder/project
 VOLUME [ "/home/coder" ]
 VOLUME [ "/home/coder/project" ]
 
-ENTRYPOINT ["dumb-init", "code-server"]
+# http port. Do not expose to the public internet directly!
+EXPOSE 8080
+
+# By default the container will create a unique password on startup and 
+# show it in the log output. It is strongly encourgaed to set the ENV
+# PASSWORD to your own secure password. Never operate the image without
+# a secure PASSWORD
+
+ENTRYPOINT ["dumb-init", "code-server", "--host", "0.0.0.0"]
