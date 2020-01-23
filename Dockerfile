@@ -35,4 +35,9 @@ VOLUME [ "/home/coder/project" ]
 # http port. Do not expose to the public internet directly!
 EXPOSE 8080
 
+# By default the container will create a unique password on startup and 
+# show it in the log output. It is strongly encourgaed to set the ENV
+# PASSWORD to your own secure password. Never operate the image without
+# a secure PASSWORD
+
 ENTRYPOINT ["dumb-init", "code-server", "--host", "0.0.0.0"]
