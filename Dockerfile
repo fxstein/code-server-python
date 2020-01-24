@@ -44,6 +44,9 @@ WORKDIR /home/coder/project
 VOLUME [ "/home/coder" ]
 VOLUME [ "/home/coder/project" ]
 
+# Make sure coder owns all contents of the home directory
+RUN chown -R coder:coder /home/coder
+
 # http port. Do not expose to the public internet directly!
 EXPOSE 8080
 
