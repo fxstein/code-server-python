@@ -29,8 +29,8 @@ RUN python3.7 -m pip install flake8
 RUN code-server --install-extension ms-python.python
 RUN code-server --install-extension eamodio.gitlens
 
-# Copy Python requirements file
-COPY requirements.txt /tmp/requirements.txt
+# Make sure coder owns all contents of the home directory
+RUN sudo chown -R coder:coder /home/coder
 
 # code-server settings
 USER coder
@@ -43,9 +43,6 @@ WORKDIR /home/coder/project
 # Coder home to also persist git config and ssh keys.
 VOLUME [ "/home/coder" ]
 VOLUME [ "/home/coder/project" ]
-
-# Make sure coder owns all contents of the home directory
-RUN sudo chown -R coder:coder /home/coder
 
 # http port. Do not expose to the public internet directly!
 EXPOSE 8080
