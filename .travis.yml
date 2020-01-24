@@ -33,5 +33,4 @@ deploy:
   provider: script
   script: bash docker_push
   on:
-    tags: true
     all_branches: true
