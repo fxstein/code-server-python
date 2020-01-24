@@ -24,7 +24,7 @@ install:
   - pip install -r requirements.txt
   - pip install flake8
 before_script:
-  - "flake8 --show-source --max-line-length=80 --statistics --builtins=_ common engine feed plugins"
+  - "flake8 --show-source --max-line-length=80 --statistics --builtins=_ test.py"
 script:
   - python test.py
   - docker build -t "$DOCKER_USERNAME"/code-server-python:$TAG .
@@ -35,3 +35,4 @@ deploy:
     branch: 
       - master
       - develop
+      - /^feature-.*$/
