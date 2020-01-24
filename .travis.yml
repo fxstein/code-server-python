@@ -15,7 +15,8 @@ jobs:
       if: branch = develop
       env: TAG=develop
     - # define feature tag
-      if: branch = /^feature-.*$/
+      #if: branch = /^feature-.*$/
+      if: branch = feature-zsh
       env: TAG=branch
 services:
   - docker
@@ -35,4 +36,5 @@ deploy:
     branch: 
       - master
       - develop
-      - /^feature-.*$/
+      - feature-zsh
+      #- /^feature-.*$/
