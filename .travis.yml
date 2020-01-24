@@ -33,8 +33,5 @@ deploy:
   provider: script
   script: bash docker_push
   on:
-    branch: 
-      - master
-      - develop
-      - /^feature-.*$/
-      - /^fix-.*$/
+    tags: true
+    all_branches: true
