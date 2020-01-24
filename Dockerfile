@@ -18,7 +18,7 @@ RUN git clone --branch master --single-branch --depth 1 \
         "git://github.com/zsh-users/zsh-syntax-highlighting.git" \
         ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting \
     \
-    && sed -i -e "s#bin/bash#bin/zsh#" /etc/passwd
+    && sudo sed -i -e "s#bin/bash#bin/zsh#" /etc/passwd
 
 # Setup python development
 RUN sudo apt-get install python3.7 python3-pip inetutils-ping python3-venv -y
