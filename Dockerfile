@@ -30,10 +30,10 @@ RUN code-server --install-extension ms-python.python
 RUN code-server --install-extension eamodio.gitlens
 
 # Make sure coder owns all contents of the home directory
-RUN sudo chown -R coder:coder /home/coder
+#RUN sudo chown -R coder:coder /home/coder
 
 # code-server settings
-USER coder
+#USER coder
 COPY settings.json /home/coder/.local/share/code-server/User/settings.json
 
 WORKDIR /home/coder/project
