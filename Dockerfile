@@ -8,6 +8,18 @@ RUN sudo apt-get update
 # Update to zsh shell
 RUN sudo apt-get install zsh -y
 
+RUN git clone --branch master --single-branch --depth 1 \
+        "git://github.com/robbyrussell/oh-my-zsh.git" ~/.oh-my-zsh \
+    \
+    && git clone --branch master --single-branch --depth 1 \
+        "git://github.com/zsh-users/zsh-autosuggestions" \
+        ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions \
+    && git clone --branch master --single-branch --depth 1 \
+        "git://github.com/zsh-users/zsh-syntax-highlighting.git" \
+        ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting \
+    \
+    && sudo sed -i -e "s#bin/bash#bin/zsh#" /etc/passwd
+
 # Setup python development
 RUN sudo apt-get install python3.7 python3-pip inetutils-ping python3-venv -y
 RUN python3.7 -m pip install pip

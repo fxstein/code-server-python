@@ -1,0 +1,13 @@
+version: "1"
+
+services:
+  code-server:
+    container_name: code-server-python
+    image: fxstein/code-server-python
+    ports:
+      - "8080:8080"
+    volumes:
+      - "${PWD}:/home/coder/project"
+      - "${HOME}:/home/coder"
+    environment:
+      PASSWORD: ${PASSWORD}
