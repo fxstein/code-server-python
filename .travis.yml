@@ -5,6 +5,7 @@ branches:
   only:
   - master
   - develop
+  - feature-zsh
   - /^feature-.*$/
 jobs:
   include:
@@ -17,7 +18,7 @@ jobs:
     - # define feature tag
       if: branch = /^feature-.*$/
       env: TAG=branch
-  fast_finish: true
+  #fast_finish: true
 services:
   - docker
 install:
