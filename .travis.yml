@@ -36,5 +36,5 @@ deploy:
     branch: 
       - master
       - develop
-      #- feature-zsh
-      #- /^feature-.*$/
+      - /^feature-.*$/
+      - /^fix-.*$/
