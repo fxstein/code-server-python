@@ -9,7 +9,7 @@ RUN sudo apt-get update
 RUN sudo apt-get install zsh -y
 
 # Setup python development
-RUN sudo apt-get install python3.7 python3-pip inetutils-ping -y
+RUN sudo apt-get install python3.7 python3-pip inetutils-ping python3-venv -y
 RUN python3.7 -m pip install pip
 RUN python3.7 -m pip install wheel
 RUN python3.7 -m pip install flake8
