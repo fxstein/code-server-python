@@ -1,6 +1,11 @@
 language: python
 python:
   - "3.7"
+branches:
+  only:
+  - master
+  - develop
+  - /^feature-.*$/
 jobs:
   include:
     - # define master tag
@@ -9,6 +14,9 @@ jobs:
     - # define develop tag
       if: branch = develop
       env: TAG=develop
+    - # define feature tag
+      if: branch = /^feature-.*$/
+      env: TAG=branch
   fast_finish: true
 services:
   - docker
