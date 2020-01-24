@@ -18,7 +18,7 @@ jobs:
     - # define feature tag
       if: branch =~ /^feature-.*$/ OR branch =~ /^fix-.*$/
       # if: branch = feature-zsh
-      env: TAG=${branch}
+      env: TAG=$TRAVIS_BRANCH
 services:
   - docker
 install:
