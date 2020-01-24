@@ -1,11 +1,12 @@
 language: python
 python:
   - "3.7"
-#branches:
-#  only:
-#  - master
-#  - develop
-#  - /^feature-.*$/
+branches:
+  only:
+  - master
+  - develop
+  - /^feature-.*$/
+  - /^fix-.*$/
 jobs:
   include:
     - # define master tag
