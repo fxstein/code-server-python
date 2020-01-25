@@ -1,6 +1,6 @@
 FROM codercom/code-server:latest
 
-MAINTAINER https://github.com/fxstein
+LABEL maintainer="https://github.com/fxstein"
 
 # First lets update everything
 RUN sudo apt-get update
@@ -22,10 +22,10 @@ RUN code-server --install-extension eamodio.gitlens
 # code-server settings
 USER coder
 COPY settings.json ~/.local/share/code-server/User/settings.json
-COPY startup.zsh ~/startup.zsh
+COPY startup2.zsh ~/.startup.zsh
 
 # Testing
-RUN cat ~/startup.zsh
+RUN cat ~/.startup.zsh
 
 
 # Install on-my-zsh
