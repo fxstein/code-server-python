@@ -47,6 +47,6 @@ EXPOSE 8080
 # show it in the log output. It is strongly encourgaed to set the ENV
 # PASSWORD to your own secure password. Never operate the image without
 # a secure PASSWORD
-ENV PASSWORD
+ENV PASSWORD=
 
 ENTRYPOINT ["dumb-init", "code-server", "--host", "0.0.0.0"]
