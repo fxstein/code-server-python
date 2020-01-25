@@ -22,7 +22,7 @@ RUN code-server --install-extension eamodio.gitlens
 # code-server settings
 USER coder
 COPY settings.json ~/.local/share/code-server/User/settings.json
-COPY startup.json ~/.startup.zsh
+COPY startup.zsh ~/.startup.zsh
 
 # Install on-my-zsh
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
