@@ -1,6 +1,7 @@
 FROM codercom/code-server:latest
 
 LABEL maintainer="https://github.com/fxstein"
+LABEL decription="VSCode code-server with python and zsh installed"
 
 # First lets update everything
 RUN sudo apt-get update
@@ -20,14 +21,9 @@ RUN code-server --install-extension ms-python.python
 RUN code-server --install-extension eamodio.gitlens
 
 # code-server settings
-# USER coder
+USER coder
 COPY settings.json /home/coder/.local/share/code-server/User/settings.json
 COPY startup.zsh /home/coder/.startup.zsh
-
-# Testing
-RUN cat ~/.local/share/code-server/User/settings.json
-RUN cat ~/.startup.zsh
-
 
 # Install on-my-zsh
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
@@ -46,8 +42,9 @@ WORKDIR /home/coder/project
 
 # This ensures we have a volume mounted even if the user forgot to do bind
 # mount. So that they do not lose their data if they delete the container.
-# Coder home to also persist git config and ssh keys.
-VOLUME [ "/home/coder" ]
+# FYI home/coder contains git config and ssh keys.
+# TODO: move ssh ang gitconfig into project volume...
+VOLUME [ "/home/coder/project" ]
 
 # http port. Do not expose to the public internet directly!
 EXPOSE 8080
