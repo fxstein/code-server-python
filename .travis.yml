@@ -22,7 +22,6 @@ services:
   - docker
 install:
   - pip install --upgrade pip
-  - pip install -r requirements.txt
   - pip install flake8
 before_script:
   - "flake8 --show-source --max-line-length=80 --statistics --builtins=_ test.py"
