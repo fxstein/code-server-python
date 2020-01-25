@@ -24,6 +24,10 @@ USER coder
 COPY settings.json ~/.local/share/code-server/User/settings.json
 COPY startup.zsh ~/.startup.zsh
 
+# Testing
+RUN cat ~/.startup.zsh
+
+
 # Install on-my-zsh
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 RUN git clone --branch master --single-branch --depth 1 \
