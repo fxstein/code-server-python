@@ -22,6 +22,7 @@ RUN code-server --install-extension eamodio.gitlens
 # code-server settings
 USER coder
 COPY settings.json ~/.local/share/code-server/User/settings.json
+COPY startup.json ~/.startup.zsh
 
 # Install on-my-zsh
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
@@ -34,7 +35,7 @@ RUN git clone --branch master --single-branch --depth 1 \
         "git://github.com/zsh-users/zsh-syntax-highlighting.git" \
         ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 RUN sed -i 's/plugins=(.*/plugins=(git vscode)/' ~/.zshrc
-RUN echo "$(cat startup.zsh)" >> ~/.zshrc
+RUN echo "source ~/.startup.zsh" >> ~/.zshrc
 
 WORKDIR /home/coder/project
 
