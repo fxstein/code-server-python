@@ -7,16 +7,6 @@ RUN sudo apt-get update
 
 # Update to zsh shell
 RUN sudo apt-get install zsh -y
-
-# Install on-my-zsh
-RUN sudo git clone --branch master --single-branch --depth 1 \
-        "git://github.com/robbyrussell/oh-my-zsh.git" ~/.oh-my-zsh
-RUN sudo git clone --branch master --single-branch --depth 1 \
-        "git://github.com/zsh-users/zsh-autosuggestions" \
-        ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-RUN sudo git clone --branch master --single-branch --depth 1 \
-        "git://github.com/zsh-users/zsh-syntax-highlighting.git" \
-        ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 RUN sudo sed -i -e "s#bin/bash#bin/zsh#" /etc/passwd
 
 # Setup python development
@@ -31,7 +21,18 @@ RUN code-server --install-extension eamodio.gitlens
 
 # code-server settings
 USER coder
-COPY settings.json /home/coder/.local/share/code-server/User/settings.json
+COPY settings.json ~/.local/share/code-server/User/settings.json
+
+# Install on-my-zsh
+RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+RUN git clone --branch master --single-branch --depth 1 \
+        "git://github.com/zsh-users/zsh-autosuggestions" \
+        ~/.oh-my-zsh/plugins/zsh-autosuggestions
+RUN echo "source ~/.oh-my-zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" \ 
+        >> ~/.zshrc
+RUN git clone --branch master --single-branch --depth 1 \
+        "git://github.com/zsh-users/zsh-syntax-highlighting.git" \
+        ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 
 WORKDIR /home/coder/project
 
