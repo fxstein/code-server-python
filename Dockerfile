@@ -34,7 +34,7 @@ RUN git clone --branch master --single-branch --depth 1 \
         "git://github.com/zsh-users/zsh-syntax-highlighting.git" \
         ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 RUN sed -i 's/plugins=(.*/plugins=(git vscode)/' ~/.zshrc
-RUN echo startup.zsh >> ~/.zshrc
+RUN echo "$(cat startup.zsh)" >> ~/.zshrc
 
 WORKDIR /home/coder/project
 
