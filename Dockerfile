@@ -20,11 +20,12 @@ RUN code-server --install-extension ms-python.python
 RUN code-server --install-extension eamodio.gitlens
 
 # code-server settings
-USER coder
+#USER coder
 COPY settings.json ~/.local/share/code-server/User/settings.json
-COPY startup2.zsh ~/.startup.zsh
+COPY startup.zsh ~/.startup.zsh
 
 # Testing
+RUN cat ~/.local/share/code-server/User/settings.json
 RUN cat ~/.startup.zsh
 
 
