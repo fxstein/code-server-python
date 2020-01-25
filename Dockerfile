@@ -33,6 +33,7 @@ RUN echo "source ~/.oh-my-zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zs
 RUN git clone --branch master --single-branch --depth 1 \
         "git://github.com/zsh-users/zsh-syntax-highlighting.git" \
         ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+RUN sed -i 's/plugins=(.*/plugins=(git vscode)/' ~/.zshrc
 
 WORKDIR /home/coder/project
 
