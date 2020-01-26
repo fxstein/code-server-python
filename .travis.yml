@@ -4,6 +4,7 @@ python:
 arch:
   - amd64
   - arm64
+os: linux
 
 branches:
   only:
@@ -14,13 +15,16 @@ branches:
 
 jobs:
   include:
-    - # define master tag
+    - os: linux
+      # define master tag
       if: branch = master
       env: TAG=latest
-    - # define develop tag
+    - os: linux
+      # define develop tag
       if: branch = develop
       env: TAG=develop
-    - # define feature tag
+    - os: linux
+      # define feature tag
       if: branch =~ /^feature-.*$/ OR branch =~ /^fix-.*$/
       env: TAG=$TRAVIS_BRANCH
 
