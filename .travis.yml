@@ -16,15 +16,16 @@ branches:
 jobs:
   include:
     - os: linux
-      # define master tag
+      arch: amd64
+    - os: linux
+      arch: arm64
+    - # define master tag
       if: branch = master
       env: TAG=latest
-    - os: linux
-      # define develop tag
+    - # define develop tag
       if: branch = develop
       env: TAG=develop
-    - os: linux
-      # define feature tag
+    - # define feature tag
       if: branch =~ /^feature-.*$/ OR branch =~ /^fix-.*$/
       env: TAG=$TRAVIS_BRANCH
 
