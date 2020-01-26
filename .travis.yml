@@ -4,12 +4,14 @@ python:
 arch:
   - amd64
   - arm64
+
 branches:
   only:
   - master
   - develop
   - /^feature-.*$/
   - /^fix-.*$/
+
 jobs:
   include:
     - # define master tag
@@ -21,6 +23,7 @@ jobs:
     - # define feature tag
       if: branch =~ /^feature-.*$/ OR branch =~ /^fix-.*$/
       env: TAG=$TRAVIS_BRANCH
+
 services:
   - docker
 install:
