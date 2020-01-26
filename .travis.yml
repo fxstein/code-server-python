@@ -6,6 +6,7 @@ branches:
   - master
   - develop
   - /^feature-.*$/
+  - /^fix-.*$/
 jobs:
   include:
     - # define master tag
@@ -15,16 +16,15 @@ jobs:
       if: branch = develop
       env: TAG=develop
     - # define feature tag
-      if: branch = /^feature-.*$/
-      env: TAG=branch
+      if: branch =~ /^feature-.*$/ OR branch =~ /^fix-.*$/
+      env: TAG=$TRAVIS_BRANCH
 services:
   - docker
 install:
   - pip install --upgrade pip
-  - pip install -r requirements.txt
   - pip install flake8
 before_script:
-  - "flake8 --show-source --max-line-length=80 --statistics --builtins=_ common engine feed plugins"
+  - "flake8 --show-source --max-line-length=80 --statistics --builtins=_ test.py"
 script:
   - python test.py
   - docker build -t "$DOCKER_USERNAME"/code-server-python:$TAG .
@@ -32,6 +32,4 @@ deploy:
   provider: script
   script: bash docker_push
   on:
-    branch: 
-      - master
-      - develop
+    all_branches: true
