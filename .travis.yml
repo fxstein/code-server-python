@@ -13,17 +13,23 @@ branches:
   - /^feature-.*$/
   - /^fix-.*$/
 
-jobs:
-  include:
-    - # define master tag
-      if: $TRAVIS_BRANCH = master
-      env: TAG=latest
-    - # define develop tag
-      if: $TRAVIS_BRANCH = develop
-      env: TAG=develop
-    - # define feature tag
-      if: $TRAVIS_BRANCH =~ /^feature-.*$/ OR branch =~ /^fix-.*$/
-      env: TAG=$TRAVIS_BRANCH
+env:
+  - TAG=$TRAVIS_BRANCH
+
+if: branch = master
+env: TAG=latest
+
+# jobs:
+#  include:
+#    - # define master tag
+#      if: branch = master
+#      env: TAG=latest
+#    - # define develop tag
+#      if: branch = develop
+#      env: TAG=develop
+#    - # define feature tag
+#      if: branch =~ /^feature-.*$/ OR branch =~ /^fix-.*$/
+#      env: TAG=$TRAVIS_BRANCH
 
 services:
   - docker
