@@ -14,9 +14,10 @@ branches:
   - /^fix-.*$/
 
 env:
-  - TAG=$TRAVIS_BRANCH
-  - if: branch = master
-    env: TAG=latest
+  global:
+    - TAG=$TRAVIS_BRANCH
+    - if: branch = master
+      env: TAG=latest
 
 # jobs:
 #  include:
