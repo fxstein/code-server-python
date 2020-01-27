@@ -2,5 +2,6 @@
     "terminal.integrated.shell.linux": "/bin/zsh",
     "python.linting.flake8Enabled": true,
     "python.linting.pylintEnabled": false,
-    "telemetry.enableTelemetry": false
+    "telemetry.enableTelemetry": false,
+    "update.mode": "none"
 }
