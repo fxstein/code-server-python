@@ -38,13 +38,19 @@ RUN sed -i 's/plugins=(.*/plugins=(git vscode)/' ~/.zshrc
 RUN echo "source ~/.startup.zsh" >> ~/.zshrc
 COPY --chown=coder:coder startup.zsh /home/coder/.startup.zsh
 
+# create config directories for persistent use
+RUN mkdir -p /home/coder/.ssh
+RUN mkdir -p /home/coder/.gitconfig
+
 WORKDIR /home/coder/project
 
 # This ensures we have a volume mounted even if the user forgot to do bind
 # mount. So that they do not lose their data if they delete the container.
-# FYI home/coder contains git config and ssh keys.
-# TODO: move ssh ang gitconfig into project volume...
 VOLUME [ "/home/coder/project" ]
+# Persist ssh keys. This is where we place the github keys
+VOLUME [ "/home/coder/.ssh" ]
+# Persist the gitconfig. Need to persist username and email for github
+VOLUME [ "/home/coder/.gitconfig" ]
 
 # http port. Do not expose to the public internet directly!
 EXPOSE 8080
