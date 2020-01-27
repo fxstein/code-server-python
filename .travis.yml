@@ -17,7 +17,7 @@ env:
   global:
     - TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
     - COMMIT=${TRAVIS_COMMIT::8}
-    - REPO="$DOCKER_USERNAME"/code-server-python
+    - REPO=$DOCKER_USERNAME/code-server-python
 
 # jobs:
 #  include:
