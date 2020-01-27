@@ -21,9 +21,8 @@ RUN code-server --install-extension ms-python.python
 RUN code-server --install-extension eamodio.gitlens
 
 # code-server settings
-USER coder
-COPY settings.json /home/coder/.local/share/code-server/User/settings.json
-COPY startup.zsh /home/coder/.startup.zsh
+USER coder:coder
+COPY --chown=coder:coder settings.json /home/coder/.local/share/code-server/User/settings.json
 
 # Install on-my-zsh
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
@@ -37,6 +36,7 @@ RUN git clone --branch master --single-branch --depth 1 \
         ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 RUN sed -i 's/plugins=(.*/plugins=(git vscode)/' ~/.zshrc
 RUN echo "source ~/.startup.zsh" >> ~/.zshrc
+COPY --chown=coder:coder startup.zsh /home/coder/.startup.zsh
 
 WORKDIR /home/coder/project
 
