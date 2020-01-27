@@ -3,34 +3,19 @@ python:
   - "3.7"
 arch:
   - amd64
-  - arm64
+#  - arm64 # Currently not working as 'RUN sudo apt-get update' fails
 os: linux
-
 branches:
   only:
   - master
   - develop
   - /^feature-.*$/
   - /^fix-.*$/
-
 env:
   global:
     - TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
     - COMMIT=${TRAVIS_COMMIT::8}
     - REPO=$DOCKER_USERNAME/code-server-python
-
-# jobs:
-#  include:
-#    - # define master tag
-#      if: branch = master
-#      env: TAG=latest
-#    - # define develop tag
-#      if: branch = develop
-#      env: TAG=develop
-#    - # define feature tag
-#      if: branch =~ /^feature-.*$/ OR branch =~ /^fix-.*$/
-#      env: TAG=$TRAVIS_BRANCH
-
 services:
   - docker
 install:
@@ -40,10 +25,9 @@ before_script:
   - "flake8 --show-source --max-line-length=80 --statistics --builtins=_ test.py"
 script:
   - python test.py
-  - docker build -t $REPO:$COMMIT .
+  - docker build -t $REPO:$TAG .
 after_success:
-  - docker tag $REPO:$COMMIT $REPO:$TAG
-  - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
+  - docker tag $REPO:$TAG $REPO:travis-$TRAVIS_BUILD_NUMBER
 deploy:
   provider: script
   script: bash docker_push
