@@ -40,11 +40,15 @@ before_script:
   - "flake8 --show-source --max-line-length=80 --statistics --builtins=_ test.py"
 script:
   - python test.py
-  - docker build -t $REPO:$COMMIT .
-  - docker tag $REPO:$COMMIT $REPO:$TAG
-  - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
+  - docker build -t $REPO .
+after_success:
+  - docker tag $REPO $REPO:$TAG
+  - docker tag $REPO $REPO:travis-$TRAVIS_BUILD_NUMBER
 deploy:
   provider: script
-  script: bash docker_push
+#  script: bash docker_push
+  script:
+    - docker login -u $DOCKER_USER -p $DOCKER_ACCESSTOKEN
+    - docker push $REPO
   on:
     all_branches: true
