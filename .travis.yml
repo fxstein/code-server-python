@@ -25,9 +25,7 @@ before_script:
   - "flake8 --show-source --max-line-length=80 --statistics --builtins=_ test.py"
 script:
   - python test.py
-  - docker build -t $REPO:$TAG .
-after_success:
-  - docker tag $REPO:$TAG $REPO:travis-$TRAVIS_BUILD_NUMBER
+  - docker build -t $REPO:$TAG -t $REPO:travis-$TRAVIS_BUILD_NUMBER .
 deploy:
   provider: script
   script: bash docker_push
