@@ -46,9 +46,6 @@ after_success:
   - docker tag $REPO $REPO:travis-$TRAVIS_BUILD_NUMBER
 deploy:
   provider: script
-#  script: bash docker_push
-  script:
-    - docker login -u $DOCKER_USER -p $DOCKER_ACCESSTOKEN
-    - docker push $REPO
+  script: bash docker_push
   on:
     all_branches: true
