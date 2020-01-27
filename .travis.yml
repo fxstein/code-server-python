@@ -15,9 +15,9 @@ branches:
 
 env:
   global:
-    - TAG=$TRAVIS_BRANCH
-    - if: branch = master
-      env: TAG=latest
+    - TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
+    - COMMIT=${TRAVIS_COMMIT::8}
+    - REPO="$DOCKER_USERNAME"/code-server-python
 
 # jobs:
 #  include:
@@ -40,7 +40,9 @@ before_script:
   - "flake8 --show-source --max-line-length=80 --statistics --builtins=_ test.py"
 script:
   - python test.py
-  - docker build -t "$DOCKER_USERNAME"/code-server-python:$TAG .
+  - docker build -t $REPO:$COMMIT
+  - docker tag $REPO:$COMMIT $REPO:$TAG
+  - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
 deploy:
   provider: script
   script: bash docker_push
