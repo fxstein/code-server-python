@@ -42,8 +42,8 @@ script:
   - python test.py
   - docker build -t $REPO:$COMMIT .
 after_success:
-  - docker tag $REPO:COMMIT $REPO:$TAG
-  - docker tag $REPO:COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
+  - docker tag $REPO:$COMMIT $REPO:$TAG
+  - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
 deploy:
   provider: script
   script: bash docker_push
