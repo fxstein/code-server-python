@@ -4,7 +4,7 @@ LABEL maintainer="https://github.com/fxstein"
 LABEL decription="VSCode code-server with python and zsh installed"
 
 # First lets update everything
-RUN apt-get update
+RUN sudo apt-get update
 
 # Update to zsh shell
 RUN sudo apt-get install zsh -y
