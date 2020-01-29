@@ -36,7 +36,8 @@ RUN git clone --branch master --single-branch --depth 1 \
         ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 RUN sed -i 's/plugins=(.*/plugins=(git vscode)/' ~/.zshrc
 RUN echo "source ~/.startup.zsh" >> ~/.zshrc
-COPY --chown=coder:coder startup.zsh /home/coder/.startup.zsh
+COPY --chown=coder:coder tools/startup.zsh /home/coder/.startup.zsh
+COPY --chown=coder:coder tools/setup-github.zsh /home/coder/setup-github.zsh
 
 # create config directories for persistent use
 RUN mkdir -p /home/coder/.ssh
