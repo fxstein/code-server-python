@@ -54,10 +54,8 @@ WORKDIR /home/coder/project
 # This ensures we have a volume mounted even if the user forgot to do bind
 # mount. So that they do not lose their data if they delete the container.
 VOLUME [ "/home/coder/project" ]
-# Persist ssh keys. This is where we place the github keys
-VOLUME [ "/home/coder/.ssh" ]
-# Persist the global .gitconfig. Needed to persist username and email for github
-VOLUME [ "/home/coder/.gitconfig" ]
+# Persist configuration
+VOLUME [ "/home/coder/.config" ]
 
 # http port. Do not expose to the public internet directly!
 EXPOSE 8080
