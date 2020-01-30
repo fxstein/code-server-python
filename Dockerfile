@@ -41,7 +41,13 @@ COPY --chown=coder:coder tools/setup-github.zsh /home/coder/setup-github.zsh
 
 # create config directories for persistent use
 RUN mkdir -p /home/coder/.ssh
-RUN mkdir -p /home/coder/.gitconfig
+RUN chown coder:coder /home/coder/.ssh
+RUN touch /home/coder/.gitconfig
+RUN chown coder:coder /home/coder/.gitconfig
+
+# place to store all individual projects
+RUN mkdir -p /home/coder/project
+RUN chown coder:coder /home/coder/project
 
 WORKDIR /home/coder/project
 
@@ -50,7 +56,7 @@ WORKDIR /home/coder/project
 VOLUME [ "/home/coder/project" ]
 # Persist ssh keys. This is where we place the github keys
 VOLUME [ "/home/coder/.ssh" ]
-# Persist the gitconfig. Need to persist username and email for github
+# Persist the global .gitconfig. Needed to persist username and email for github
 VOLUME [ "/home/coder/.gitconfig" ]
 
 # http port. Do not expose to the public internet directly!

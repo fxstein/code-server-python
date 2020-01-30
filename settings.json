@@ -3,5 +3,6 @@
     "python.linting.flake8Enabled": true,
     "python.linting.pylintEnabled": false,
     "telemetry.enableTelemetry": false,
-    "update.mode": "none"
+    "update.mode": "none",
+    "git.defaultCloneDirectory": "/home/coder/project"
 }
