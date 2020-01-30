@@ -39,15 +39,15 @@ RUN echo "source ~/.startup.zsh" >> ~/.zshrc
 COPY --chown=coder:coder tools/startup.zsh /home/coder/.startup.zsh
 COPY --chown=coder:coder tools/setup-github.zsh /home/coder/setup-github.zsh
 
-# create config directories for persistent use
-RUN mkdir -p /home/coder/.ssh
-RUN chown coder:coder /home/coder/.ssh
-RUN touch /home/coder/.gitconfig
-RUN chown coder:coder /home/coder/.gitconfig
+# create config directories and links for persistent use
+RUN mkdir -p /home/coder/.config
+RUN mkdir -p /home/coder/.config/.ssh
+RUN touch /home/coder/.config/.gitconfig
+RUN ln -s /home/coder/.config/.ssh /home/coder/.ssh
+RUN ln -s /home/coder/.config/.gitconfig /home/coder/.gitconfig
 
 # place to store all individual projects
 RUN mkdir -p /home/coder/project
-RUN chown coder:coder /home/coder/project
 
 WORKDIR /home/coder/project
 
