@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 # code-server-python info
 # Basic version info
 CODE_SERVER_VERSION=`code-server --version | sed -n 1p | cut -d" " -f3`

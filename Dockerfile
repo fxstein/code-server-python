@@ -35,15 +35,23 @@ RUN git clone --branch master --single-branch --depth 1 \
         "git://github.com/zsh-users/zsh-syntax-highlighting.git" \
         ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 RUN sed -i 's/plugins=(.*/plugins=(git vscode ssh-agent)/' ~/.zshrc
-RUN echo "source ~/.startup.zsh" >> ~/.zshrc
-COPY --chown=coder:coder tools/startup.zsh /home/coder/.startup.zsh
-COPY --chown=coder:coder tools/setup-github.zsh /home/coder/setup-github.zsh
-RUN chmod 744 /home/coder/setup-github.zsh
+RUN echo "# code-server-python startup banner" >> ~/.zshrc
+RUN echo "source ~/.startup-banner" >> ~/.zshrc
+
+# Init script for empty volume config structure
+COPY --chown=coder:coder tools/init-config.zsh /init-config
+RUN chmod 740 /init-config
+
+# Helper tools
+COPY --chown=coder:coder tools/startup-banner.zsh /home/coder/.startup-banner
+COPY --chown=coder:coder tools/setup-github.zsh /home/coder/setup-github
+RUN chmod 740 /home/coder/setup-github
 
 # create config directories and links for persistent use
 RUN mkdir -p /home/coder/.config
 RUN mkdir -p /home/coder/.config/.ssh
 RUN touch /home/coder/.config/.gitconfig
+# these links to the permanent volume 
 RUN ln -s /home/coder/.config/.ssh /home/coder/.ssh
 RUN ln -s /home/coder/.config/.gitconfig /home/coder/.gitconfig
 
@@ -67,4 +75,4 @@ EXPOSE 8080
 # a secure PASSWORD
 ENV PASSWORD=
 
-ENTRYPOINT ["dumb-init", "code-server", "--host", "0.0.0.0"]
+ENTRYPOINT ["dumb-init", "init-config && code-server", "--host", "0.0.0.0"]
