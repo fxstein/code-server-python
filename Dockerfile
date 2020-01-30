@@ -38,6 +38,7 @@ RUN sed -i 's/plugins=(.*/plugins=(git vscode ssh-agent)/' ~/.zshrc
 RUN echo "source ~/.startup.zsh" >> ~/.zshrc
 COPY --chown=coder:coder tools/startup.zsh /home/coder/.startup.zsh
 COPY --chown=coder:coder tools/setup-github.zsh /home/coder/setup-github.zsh
+RUN chmod 744 /home/coder/setup-github.zsh
 
 # create config directories and links for persistent use
 RUN mkdir -p /home/coder/.config
