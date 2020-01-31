@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/dumb-init /bin/bash
 
 # Make sure we initialize the config inside of a potentially new volume
 if [ ! -f /home/coder/.config/.gitconfig ]; then
