@@ -75,4 +75,4 @@ EXPOSE 8080
 # a secure PASSWORD
 ENV PASSWORD=
 
-ENTRYPOINT ["dumb-init", "/init-config && code-server", "--host", "0.0.0.0"]
+ENTRYPOINT ["dumb-init", "code-server", "--host", "0.0.0.0"]
