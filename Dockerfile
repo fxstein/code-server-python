@@ -79,5 +79,5 @@ ENV PASSWORD=
 # CMD ["bash", "-c", "init-config"]
 
 ENTRYPOINT ["dumb-init", "--"]
-CMD ["bash", "-c", "init-config"]
+#CMD ["bash", "-c", "init-config"]
 CMD ["code-server", "--host", "0.0.0.0"]
