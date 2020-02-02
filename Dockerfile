@@ -39,8 +39,8 @@ RUN echo "# code-server-python startup banner" >> ~/.zshrc
 RUN echo "source ~/.startup-banner" >> ~/.zshrc
 
 # Init script for empty volume config structure
-COPY --chown=coder:coder tools/init-config.sh /init-config
-RUN chmod 755 /init-config
+COPY --chown=coder:coder tools/init-config.sh /usr/local/bin/init-config
+RUN chmod 755 /usr/local/bin/init-config
 
 # Helper tools
 COPY --chown=coder:coder tools/startup-banner.zsh /home/coder/.startup-banner
@@ -76,3 +76,5 @@ EXPOSE 8080
 ENV PASSWORD=
 
 ENTRYPOINT ["dumb-init", "code-server", "--host", "0.0.0.0"]
+
+CMD ["bash", "-c", "init-config"]
