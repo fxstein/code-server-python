@@ -39,13 +39,13 @@ RUN echo "# code-server-python startup banner" >> ~/.zshrc
 RUN echo "source ~/.startup-banner" >> ~/.zshrc
 
 # Init script for empty volume config structure
-COPY --chown=coder:coder tools/init-config.sh /usr/local/bin/init-config
+COPY tools/init-config.sh /usr/local/bin/init-config
 RUN chmod 755 /usr/local/bin/init-config
 
 # Helper tools
 COPY --chown=coder:coder tools/startup-banner.zsh /home/coder/.startup-banner
-COPY --chown=coder:coder tools/setup-github.zsh /usr/local/bin/setup-github
-RUN chmod 740 /usr/local/bin/setup-github
+COPY tools/setup-github.zsh /usr/local/bin/setup-github
+RUN chmod 755 /usr/local/bin/setup-github
 
 # create config directories and links for persistent use
 RUN sudo mkdir -p /config
