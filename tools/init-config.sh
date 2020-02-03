@@ -6,8 +6,8 @@ echo "info  Checking existing config setup"
 if [ ! -f /config/.gitconfig ]; then
     echo "info    - New install - setting up config"
     # Make sure we own the files and directories
-    chown coder:coder /config
-    chown coder:coder /project
+    sudo chown coder:coder /config
+    sudo chown coder:coder /home/coder/project
 
     # create files and subdirectories
     touch /config/.gitconfig
@@ -15,7 +15,7 @@ if [ ! -f /config/.gitconfig ]; then
 
     # set proper permissions
     chmod 740 /config
-    chmod 740 /project
+    chmod 740 /home/coder/project
     chmod 640 /config/.gitconfig
     chmod 740 /config/.ssh
 

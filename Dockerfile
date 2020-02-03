@@ -56,17 +56,11 @@ RUN touch /config/.gitconfig
 RUN ln -s /config/.ssh /home/coder/.ssh
 RUN ln -s /config/.gitconfig /home/coder/.gitconfig
 
-# place to store all individual projects
-RUN sudo mkdir -p /project
-RUN sudo chown coder:coder /project
-RUN sudo rm -R /home/coder/project
-RUN ln -s /project /home/coder/project
-
 WORKDIR /home/coder/project
 
 # This ensures we have a volume mounted even if the user forgot to do bind
 # mount. So that they do not lose their data if they delete the container.
-VOLUME [ "/project" ]
+VOLUME [ "/home/coder/project" ]
 # Persist configuration
 VOLUME [ "/config" ]
 
