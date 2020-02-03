@@ -48,7 +48,8 @@ COPY --chown=coder:coder tools/setup-github.zsh /home/coder/setup-github
 RUN chmod 740 /home/coder/setup-github
 
 # create config directories and links for persistent use
-RUN mkdir -p /config
+RUN sudo mkdir -p /config
+RUN sudo chown coder:coder /config
 RUN mkdir -p /config/.ssh
 RUN touch /config/.gitconfig
 # these links to the permanent volume 
@@ -56,7 +57,8 @@ RUN ln -s /config/.ssh /home/coder/.ssh
 RUN ln -s /config/.gitconfig /home/coder/.gitconfig
 
 # place to store all individual projects
-RUN mkdir -p /project
+RUN sudo mkdir -p /project
+RUN sudo chown coder:coder /project
 RUN ln -s /project /home/coder/project
 
 WORKDIR /home/coder/project
