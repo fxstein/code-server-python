@@ -45,7 +45,7 @@ RUN sudo chmod 755 /usr/local/bin/init-config
 # Helper tools
 COPY --chown=coder:coder tools/startup-banner.zsh /home/coder/.startup-banner
 COPY tools/setup-github.zsh /usr/local/bin/setup-github
-RUN chmod 755 /usr/local/bin/setup-github
+RUN sudo chmod 755 /usr/local/bin/setup-github
 
 # create config directories and links for persistent use
 RUN sudo mkdir -p /config
