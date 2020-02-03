@@ -59,6 +59,7 @@ RUN ln -s /config/.gitconfig /home/coder/.gitconfig
 # place to store all individual projects
 RUN sudo mkdir -p /project
 RUN sudo chown coder:coder /project
+RUN sudo rm -R /home/coder/project
 RUN ln -s /project /home/coder/project
 
 WORKDIR /home/coder/project
