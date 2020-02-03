@@ -78,6 +78,6 @@ ENV PASSWORD=
 # ENTRYPOINT ["dumb-init", "code-server", "--host", "0.0.0.0"]
 # CMD ["bash", "-c", "init-config"]
 
-ENTRYPOINT ["dumb-init", "--"]
+ENTRYPOINT ["dumb-init", "init-config && code-server", "--host", "0.0.0.0"]
 #CMD ["code-server", "--host", "0.0.0.0"]
-CMD ["bash", "-c", "init-config && exec code-server --host 0.0.0.0"]
+#CMD ["bash", "-c", "init-config && exec code-server --host 0.0.0.0"]
