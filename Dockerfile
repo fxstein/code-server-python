@@ -21,9 +21,8 @@ RUN code-server --install-extension ms-python.python
 RUN code-server --install-extension eamodio.gitlens
 
 # code-server settings
-USER coder
-COPY settings.json /home/coder/.local/share/code-server/User/settings.json
-COPY startup.zsh /home/coder/.startup.zsh
+USER coder:coder
+COPY --chown=coder:coder settings.json /home/coder/.local/share/code-server/User/settings.json
 
 # Install on-my-zsh
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
@@ -35,16 +34,35 @@ RUN echo "source ~/.oh-my-zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zs
 RUN git clone --branch master --single-branch --depth 1 \
         "git://github.com/zsh-users/zsh-syntax-highlighting.git" \
         ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-RUN sed -i 's/plugins=(.*/plugins=(git vscode)/' ~/.zshrc
-RUN echo "source ~/.startup.zsh" >> ~/.zshrc
+RUN sed -i 's/plugins=(.*/plugins=(git vscode ssh-agent)/' ~/.zshrc
+RUN echo "# code-server-python startup banner" >> ~/.zshrc
+RUN echo "source ~/.startup-banner" >> ~/.zshrc
+
+# Init script for empty volume config structure
+COPY tools/init-config.sh /usr/local/bin/init-config
+RUN sudo chmod 755 /usr/local/bin/init-config
+
+# Helper tools
+COPY --chown=coder:coder tools/startup-banner.zsh /home/coder/.startup-banner
+COPY tools/setup-github.zsh /usr/local/bin/setup-github
+RUN sudo chmod 755 /usr/local/bin/setup-github
+
+# create config directories and links for persistent use
+RUN sudo mkdir -p /config
+RUN sudo chown coder:coder /config
+RUN mkdir -p /config/.ssh
+RUN touch /config/.gitconfig
+# these links to the permanent volume 
+RUN ln -s /config/.ssh /home/coder/.ssh
+RUN ln -s /config/.gitconfig /home/coder/.gitconfig
 
 WORKDIR /home/coder/project
 
 # This ensures we have a volume mounted even if the user forgot to do bind
 # mount. So that they do not lose their data if they delete the container.
-# FYI home/coder contains git config and ssh keys.
-# TODO: move ssh ang gitconfig into project volume...
 VOLUME [ "/home/coder/project" ]
+# Persist configuration
+VOLUME [ "/config" ]
 
 # http port. Do not expose to the public internet directly!
 EXPOSE 8080
@@ -55,4 +73,6 @@ EXPOSE 8080
 # a secure PASSWORD
 ENV PASSWORD=
 
-ENTRYPOINT ["dumb-init", "code-server", "--host", "0.0.0.0"]
+ENTRYPOINT ["dumb-init", "--"]
+# Make sure we initialize the config if run for the very first time
+CMD ["bash", "-c", "init-config && code-server", "--host", "0.0.0.0"]
