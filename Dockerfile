@@ -75,8 +75,6 @@ EXPOSE 8080
 # a secure PASSWORD
 ENV PASSWORD=
 
-# ENTRYPOINT ["dumb-init", "code-server", "--host", "0.0.0.0"]
-# CMD ["bash", "-c", "init-config"]
-
 ENTRYPOINT ["dumb-init", "--"]
+# Make sure we initialize the config if run for the very first time
 CMD ["bash", "-c", "init-config && code-server", "--host", "0.0.0.0"]
