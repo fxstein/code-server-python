@@ -40,7 +40,7 @@ RUN echo "source ~/.startup-banner" >> ~/.zshrc
 
 # Init script for empty volume config structure
 COPY tools/init-config.sh /usr/local/bin/init-config
-RUN chmod 755 /usr/local/bin/init-config
+RUN sudo chmod 755 /usr/local/bin/init-config
 
 # Helper tools
 COPY --chown=coder:coder tools/startup-banner.zsh /home/coder/.startup-banner
