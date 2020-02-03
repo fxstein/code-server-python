@@ -17,7 +17,7 @@ if [ ! -f /home/coder/.config/.gitconfig ]; then
     chmod 740 /home/coder/.config
     chmod 740 /home/coder/project
     chmod 640 /home/coder/.config/.gitconfig
-    chmod 640 /home/coder/.config/.ssh
+    chmod 740 /home/coder/.config/.ssh
 
     echo "info: New install - config setup completed."
 else
