@@ -48,23 +48,24 @@ COPY --chown=coder:coder tools/setup-github.zsh /home/coder/setup-github
 RUN chmod 740 /home/coder/setup-github
 
 # create config directories and links for persistent use
-RUN mkdir -p /home/coder/.config
-RUN mkdir -p /home/coder/.config/.ssh
-RUN touch /home/coder/.config/.gitconfig
+RUN mkdir -p /config
+RUN mkdir -p /config/.ssh
+RUN touch /config/.gitconfig
 # these links to the permanent volume 
-RUN ln -s /home/coder/.config/.ssh /home/coder/.ssh
-RUN ln -s /home/coder/.config/.gitconfig /home/coder/.gitconfig
+RUN ln -s /config/.ssh /home/coder/.ssh
+RUN ln -s /config/.gitconfig /home/coder/.gitconfig
 
 # place to store all individual projects
-RUN mkdir -p /home/coder/project
+RUN mkdir -p /project
+RUN ln -s /project /home/coder/project
 
 WORKDIR /home/coder/project
 
 # This ensures we have a volume mounted even if the user forgot to do bind
 # mount. So that they do not lose their data if they delete the container.
-VOLUME [ "/home/coder/project" ]
+VOLUME [ "/project" ]
 # Persist configuration
-VOLUME [ "/home/coder/.config" ]
+VOLUME [ "/config" ]
 
 # http port. Do not expose to the public internet directly!
 EXPOSE 8080
